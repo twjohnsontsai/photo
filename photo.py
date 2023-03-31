@@ -2,7 +2,7 @@
 Author: twjohnsontsai twjohnsontsai@icloud.com
 Date: 2023-03-31 14:53:05
 LastEditors: twjohnsontsai twjohnsontsai@icloud.com
-LastEditTime: 2023-03-31 23:29:09
+LastEditTime: 2023-03-31 23:52:42
 FilePath: /test/photo/photo.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
@@ -12,7 +12,7 @@ from datetime import datetime
 from PIL import Image
 
 # 设置源文件夹路径
-src_folder = '/Volumes/Mac/照片'
+src_folder = '/Volumes/photo'
 
 # 设置目标文件夹路径
 dst_folder = '/Volumes/home/Photos/MobileBackup/photo'
@@ -36,10 +36,15 @@ else:
                         # 将拍摄日期转换为datetime类型
                         date = datetime.strptime(date_str, '%Y:%m:%d %H:%M:%S')
                         # 根据年份和月份创建目标文件夹
-                        dst_folder = os.path.join(dst_folder, str(date.year), f'{date.month:02d}')
-                        os.makedirs(dst_folder, exist_ok=True)
-                        # 移动文件到目标文件夹
-                        shutil.move(file_path, os.path.join(dst_folder, filename))
+                        dst_folder_year_month = os.path.join(
+                            dst_folder, str(date.year), f'{date.month:02d}')
+                        os.makedirs(dst_folder_year_month, exist_ok=True)
+                        # 判断目标文件夹中是否已经存在相同文件名的图片
+                        dst_file_path = os.path.join(
+                            dst_folder_year_month, filename)
+                        if not os.path.exists(dst_file_path):
+                            # 移动文件到目标文件夹
+                            shutil.move(file_path, dst_file_path)
         except:
             pass
 
