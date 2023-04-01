@@ -63,4 +63,4 @@ for root, dirs, files in os.walk(src_folder):
                     new_file_path = os.path.join(dst_folder, new_filename)
                     shutil.move(file_path, new_file_path)
 
-print('脚本执行完毕！')
+print(f'脚本执行完毕！完成时间：{datetime.now()}')
