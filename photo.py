@@ -1,29 +1,22 @@
-'''
-Author: twjohnsontsai twjohnsontsai@icloud.com
-Date: 2023-03-31 14:53:05
-LastEditors: twjohnsontsai twjohnsontsai@icloud.com
-LastEditTime: 2023-03-31 23:52:42
-FilePath: /test/photo/photo.py
-Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
-'''
 import os
 import shutil
+import hashlib
 from datetime import datetime
 from PIL import Image
 
-# 设置源文件夹路径
-src_folder = '/Volumes/photo'
 
-# 设置目标文件夹路径
+# 指定源目录和目标目录
+src_folder = '/Volumes/photo'
 dst_folder = '/Volumes/home/Photos/MobileBackup/photo'
 
-# 检查目标文件夹是否已经存在，如果已经存在，则认为脚本已经执行过，不再执行
-if os.path.exists(dst_folder):
-    print('目标文件夹已经存在，脚本已经执行过！')
-else:
-    # 遍历源文件夹中的所有文件
-    for filename in os.listdir(src_folder):
-        file_path = os.path.join(src_folder, filename)
+# 创建目标目录
+os.makedirs(dst_folder, exist_ok=True)
+
+# 遍历源目录中的所有文件和照片
+for root, dirs, files in os.walk(src_folder):
+    for filename in files:
+        # 获取文件路径
+        file_path = os.path.join(root, filename)
 
         # 判断文件是否为图片
         try:
@@ -46,6 +39,28 @@ else:
                             # 移动文件到目标文件夹
                             shutil.move(file_path, dst_file_path)
         except:
-            pass
+            # 如果文件不是图片，则直接移动到目标目录
+            try:
+                with open(file_path, 'rb') as f:
+                    if not f.readable():
+                        continue
+            except IOError as e:
+                print(f'Error: {e}')
+                continue
+            dst_file_path = os.path.join(dst_folder, filename)
+            if not os.path.exists(dst_file_path):
+                shutil.move(file_path, dst_file_path)
+            else:
+                # 如果目标目录中已经存在相同的文件，则进行比较哈希值
+                src_file_hash = hashlib.md5(
+                    open(file_path, 'rb').read()).hexdigest()
+                dst_file_hash = hashlib.md5(
+                    open(dst_file_path, 'rb').read()).hexdigest()
+                if src_file_hash != dst_file_hash:
+                    # 如果哈希值不相同，则在文件名前加上当前时间戳，并移动到目标目录
+                    timestamp = int(datetime.now().timestamp())
+                    new_filename = f'{timestamp}_{filename}'
+                    new_file_path = os.path.join(dst_folder, new_filename)
+                    shutil.move(file_path, new_file_path)
 
-    print('脚本执行完毕！')
+print('脚本执行完毕！')
