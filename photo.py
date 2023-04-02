@@ -2,7 +2,7 @@
 Author: twjohnsontsai twjohnsontsai@icloud.com
 Date: 2023-03-31 14:53:05
 LastEditors: twjohnsontsai twjohnsontsai@icloud.com
-LastEditTime: 2023-04-02 21:07:52
+LastEditTime: 2023-04-02 21:11:59
 FilePath: /photo/photo.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
@@ -11,7 +11,7 @@ import shutil
 from datetime import datetime
 
 # 源文件夹路径
-source_folder = r'/Volumes/home/Photos/MobileBackup/JohnsonProMax'
+source_folder = r'/Volumes/home/Photos/MobileBackup/JohnsonX RS'
 # 目标文件夹路径
 target_folder = r'/Volumes/home/Photos/MobileBackup/photo2'
 # 错误文件夹路径
