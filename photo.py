@@ -11,9 +11,9 @@ import shutil
 from datetime import datetime
 
 # 源文件夹路径
-source_folder = r'/Volumes/home/Photos/MobileBackup/photo'
+source_folder = r'/Volumes/photo'
 # 目标文件夹路径
-target_folder = r'/Volumes/home/Photos/MobileBackup/photo1'
+target_folder = r'/Volumes/home/Photos/MobileBackup/photo2'
 # 错误文件夹路径
 error_folder = r'/Volumes/home/Photos/MobileBackup/error'
 
