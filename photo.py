@@ -1,3 +1,11 @@
+'''
+Author: twjohnsontsai twjohnsontsai@icloud.com
+Date: 2023-03-31 14:53:05
+LastEditors: twjohnsontsai twjohnsontsai@icloud.com
+LastEditTime: 2023-04-02 07:39:15
+FilePath: /photo/photo.py
+Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+'''
 import os
 import shutil
 import hashlib
@@ -6,8 +14,8 @@ from PIL import Image
 
 
 # 指定源目录和目标目录
-src_folder = '/Volumes/photo'
-dst_folder = '/Volumes/home/Photos/MobileBackup/photo'
+src_folder = '/Volumes/home/Photos/MobileBackup/photo'
+dst_folder = '/Volumes/home/Photos/MobileBackup/photo1'
 
 # 创建目标目录
 os.makedirs(dst_folder, exist_ok=True)
